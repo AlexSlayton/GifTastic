@@ -5,34 +5,93 @@
 	<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <style type="text/css">
+
 	body {
 		background-color: gray;
 	}
+
 </style>
 </head>
 <body>
-<div class="container"></div>
-<button type="button" class="btn btn-primary" id="btn1">1</button>
-<button type="button" class="btn btn-primary">2</button>
-<button type="button" class="btn btn-primary">3</button>
-<button type="button" class="btn btn-primary">4</button>
-<button type="button" class="btn btn-primary">5</button>
-<button type="button" class="btn btn-primary">6</button>
-<button type="button" class="btn btn-primary">7</button>
+
+	<div class="container">
+
+		<div class="jumbotron">
+			<h1>The Animal Giphy</h1>
+
+		<!--This is where new buttons go-->
+		<div id="newBtn"></div>
+
+		<form id="btn-form">
+			<label for="gif-input">Animal Type</label>
+			<input type="text" id="gif-input"><br>
+
+		<!--Button adds gif-->
+			<input id="addGif" type="submit" value="Add It">
+		</form>
+		</div>
+
+		<!--put gifs here-->
+		<div id="viewGif"></div>
 
 
+
+		<!--might use later..
+
+		<button type="button" class="btn btn-primary" id="btn1">1</button>
+		<button type="button" class="btn btn-primary">2</button>
+		<button type="button" class="btn btn-primary">3</button>
+		<button type="button" class="btn btn-primary">4</button>
+		<button type="button" class="btn btn-primary">5</button>
+		<button type="button" class="btn btn-primary">6</button>
+		<button type="button" class="btn btn-primary">7</button>-->
+
+		
+	</div>
 
 
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 <script type="text/javascript">
-	var queryURL = "http://api.giphy.com/v1/gifs/search?q=&api_key=dc6zaTOxFJmzC&limit=10";
-	
 
+	var topics = ['Cat', 'Dog', 'Mouse', 'Turtle'];
+
+	function displayGifInfo(){
+
+	var topics = $(this).data("animal");
+	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics + "&api_key=dc6zaTOxFJmzC&limit=10";
+	
+	//ring ring ring
 	$.ajax({url: queryURL,method: "GET"})
 		.done(function(response){
           console.log(response);
+
+         
+
+          for (var i = 0; i < results.lenght; i++) {
+
+          	 var gifDiv = $('<div class="gif">');
+
+          	 // get the rating
+          	 var p = $("<p>").text("Rating: " + results[i].rating);
+
+          	 //image tag
+          	 var animalImage = $("<img>");
+          	 // get image from results of API
+          	 animalImage.attr("src", results[i].images.fixed_height.url);
+
+          	 // append it
+          	 gifDiv.append(p);
+          	 gifDiv.append(animalImage);
+
+          	 // images shows in div tag #viewGif
+          	 $("#viewGif").prepend(gifDiv);
+
+          }
+
+          
 		});
         
+     }
 
 </script>
 
