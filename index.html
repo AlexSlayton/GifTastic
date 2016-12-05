@@ -53,6 +53,8 @@
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 <script type="text/javascript">
 
+	$("")
+
 	var topics = ['Cat', 'Dog', 'Mouse', 'Turtle'];
 
 	function displayGifInfo(){
@@ -64,10 +66,21 @@
 	$.ajax({url: queryURL,method: "GET"})
 		.done(function(response){
           console.log(response);
+      });
 
+    function getBtn(){
          
 
           for (var i = 0; i < results.lenght; i++) {
+
+          	var a = $('<button>') // This code $('<button>') is all jQuery needs to create the beginning and end tag. (<button></button>)
+		    a.addClass('aGif');  
+		    a.attr('data-name', results[i]); 
+		    a.text(results[i]); 
+		    $('#viewGif').append(a); 
+		}
+
+
 
           	 var gifDiv = $('<div class="gif">');
 
@@ -86,12 +99,12 @@
           	 // images shows in div tag #viewGif
           	 $("#viewGif").prepend(gifDiv);
 
-          }
+        
 
           
-		});
+		
         
-     }
+     
 
 </script>
 
